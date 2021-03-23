@@ -12,10 +12,16 @@ module.exports = {
 	 * app.ts 作为 webpack 构建的入口文件
 	 * entries 收集了多目录个入口文件，并且每个入口还引入了一个用于热更新的文件
 	 * entries 是一个对象，key 为目录名
+   *
+   * entries: {
+   *  simple: ['webpack-hot-middleware/client', '/...../simple/app.ts'],
+   *  xxxxxx: ['webpack-hot-middleware/client', '/...../xxxxxx/app.ts'],
+   * }
 	 */
 	entry: fs.readdirSync(__dirname).reduce((entries, dir) => {
 		const fullDir = path.join(__dirname, dir);
 		const entry = path.join(fullDir, 'app.ts');
+    // 判断路径是否存在 && 判断该路径下 app.ts 是否存在
 		if (fs.statSync(fullDir).isDirectory() && fs.existsSync(entry)) {
 			entries[dir] = ['webpack-hot-middleware/client', entry];
 		}
@@ -32,6 +38,10 @@ module.exports = {
 		publicPath: '/__build__/'
 	},
 
+  /**
+   * 使用 ts-loader 解析 .ts .tsx 文件
+   * 所以每一个 app.ts 直接引入的 ts-axios 能执行
+   */
 	module: {
 		rules: [
 			{
@@ -53,8 +63,8 @@ module.exports = {
 						}
 					}
 				]
-			}
-		]
+			},
+		],
 	},
 
 	resolve: {

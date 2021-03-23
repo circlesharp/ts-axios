@@ -1,6 +1,4 @@
 import axios from '../../src/index';
-console.log(233, axios);
-
 
 axios({
 	method: 'get',
