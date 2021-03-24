@@ -54,7 +54,7 @@ export function buildURL(url: string, params?: any): string {
 		values.forEach(val => {
 			if (isDate(val))
 				// 日期处理
-				val = val.toISOString;
+				val = val.toISOString();
 			else if (isObject(val))
 				// 对象处理
 				val = JSON.stringify(val);

@@ -25,9 +25,15 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 const router = express.Router();
+
 router.get('/simple/get', async (req, res) => {
 	res.json({ msg: 'hello world' });
 });
+
+router.get('/base/get', async (req, res) => {
+	res.json(req.query);
+});
+
 app.use(router);
 
 const port = process.env.PORT || 8080;
