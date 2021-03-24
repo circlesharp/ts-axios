@@ -34,6 +34,22 @@ router.get('/base/get', async (req, res) => {
 	res.json(req.query);
 });
 
+router.post('/base/post', async (req, res) => {
+	res.json(req.body);
+});
+
+router.post('/base/buffer', async (req, res) => {
+	const msg = [];
+	req.on('data', chunk => {
+		if (chunk) {
+			msg.push(chunk);
+		}
+	});
+	req.on('end', () => {
+		res.json(Buffer.concat(msg).toJSON());
+	});
+});
+
 app.use(router);
 
 const port = process.env.PORT || 8080;

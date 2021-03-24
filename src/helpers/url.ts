@@ -1,4 +1,4 @@
-import { isDate, isObject } from "./utils";
+import { isDate, isPlainObject } from "./utils";
 
 // encode uri
 // 特殊字符支持 @ : $ , + [ ]
@@ -55,7 +55,7 @@ export function buildURL(url: string, params?: any): string {
 			if (isDate(val))
 				// 日期处理
 				val = val.toISOString();
-			else if (isObject(val))
+			else if (isPlainObject(val))
 				// 对象处理
 				val = JSON.stringify(val);
 

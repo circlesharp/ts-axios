@@ -5,6 +5,8 @@ interface optionsItem {
 	url?: string;
 	method?: string;
 	params?: object;
+	data?: any;
+	headers?: any;
 }
 
 const method = 'get';
@@ -53,7 +55,36 @@ const optionsInstances: optionsItem[] = [
 		params: {
 			bar: 'baz'
 		}
-	}
+	},
+
+	{
+		method: 'post',
+		url: '/base/post',
+		data: { a: 1, b: 2 }
+	},
+
+	{
+		method: 'post',
+		url: '/base/post',
+		data: { a: 1, b: 2 },
+		headers: {
+			'content-type': 'application/json',
+			'Accept': 'application/json, text/plain, */*',
+		}
+	},
+
+	// URLSearchParams 是 XMLHttpRequest.send(body) 的 body 中的一种
+	{
+		method: 'post',
+		url: '/base/post',
+		data: new URLSearchParams('q=URLUtils.searchParams&topic=api'),
+	},
+
+	{
+		method: 'post',
+		url: '/base/buffer',
+		data: new Int32Array([21, 31])
+	},
 ];
 
 for (const options of optionsInstances) {
