@@ -97,3 +97,21 @@ for (const options of optionsInstances) {
 
 	axios(options as AxiosRequestConfig);
 }
+
+
+// ================= 处理响应数据 =================
+
+// 没有配置 responseType 所以返回了字符串(尝试使用 JSON.parse)
+axios({
+	method: 'post',
+	url: '/base/post',
+	data: { a: 3, b: 4 }
+}).then(console.log);
+
+// 没有配置 responseType 为 json 所以返回了对象
+axios({
+	method: 'post',
+	url: '/base/post',
+	responseType: 'json',
+	data: { a: 5, b: 6 }
+}).then(console.log);

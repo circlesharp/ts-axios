@@ -1,3 +1,4 @@
+import { head } from "shelljs";
 import { isPlainObject } from "./utils";
 
 const CONTENT_TYPE = 'Content-Type';
@@ -25,4 +26,36 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
 			delete headers[name];
 		}
 	});
+}
+
+export function parseHeaders(headers: string): any {
+	// `
+	// connection: keep-alive
+	// content-length: 13
+	// content-type: application/json; charset=utf-8
+	// date: Fri, 26 Mar 2021 16:59:47 GMT
+	// etag: W/"d-dSDgb4OWh/o1B/toCU79AZ1wFEQ"
+	// keep-alive: timeout=5
+	// x-powered-by: Express
+	// ` => { ... }
+
+	const parsed: { [key: string]: string; } = {}; // 或者 const parsed = Object.create(null);
+	if (!headers) {
+		return parsed;
+	}
+
+	const lines = headers.split('\r\n');
+	for (const line of lines) {
+		let [key, val] = line.split(':');
+		key = key.trim().toLowerCase();
+		if (!key) {
+			continue;
+		}
+		if (val) {
+			val = val.trim();
+		}
+		parsed[key] = val;
+	}
+
+	return parsed;
 }

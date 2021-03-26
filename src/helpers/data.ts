@@ -8,3 +8,15 @@ export function transformRequest<T>(data: T): T | string {
 
 	return data;
 }
+
+export function transformResponse(data: any): any {
+	if (typeof data === 'string') {
+		try {
+			data = JSON.parse(data);
+		} catch (err) {
+			// 啥也不做
+		}
+	}
+
+	return data;
+}
