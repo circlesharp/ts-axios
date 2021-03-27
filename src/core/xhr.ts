@@ -1,6 +1,6 @@
-import { createError } from "./helpers/error";
-import { parseHeaders } from "./helpers/headers";
-import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "./types";
+import { createError } from "../helpers/error";
+import { parseHeaders } from "../helpers/headers";
+import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "../types";
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
@@ -26,7 +26,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
      * async 表示是否异步执行操作 默认为true
      * user password 可选的用户名用于认证用途；默认为null
      */
-    request.open(method.toUpperCase(), url, true);
+    request.open(method.toUpperCase(), url!, true);
 
     // resolve
     request.onreadystatechange = function handleLoad() {
