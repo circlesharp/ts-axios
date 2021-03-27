@@ -1,7 +1,7 @@
 import axios from '../../src/index';
 import { AxiosRequestConfig } from '../../src/types';
 
-interface optionsItem {
+interface OptionsItem {
 	url?: string;
 	method?: string;
 	params?: object;
@@ -12,7 +12,7 @@ interface optionsItem {
 const method = 'get';
 const url = '/base/get';
 
-const optionsInstances: optionsItem[] = [
+const optionsInstances: OptionsItem[] = [
 	// 处理数组
 	{
 		params: { foo: ['bar', 'baz'] },

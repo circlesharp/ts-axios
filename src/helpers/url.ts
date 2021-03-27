@@ -29,8 +29,9 @@ function encode(val: string) {
  */
 export function buildURL(url: string, params?: any): string {
 	// 没有 params, 直接返回 url
-	if (!params)
+	if (!params) {
 		return url;
+	}
 
 	// 键值对数组 用作储存 uri
 	const parts: string[] = [];
@@ -39,8 +40,9 @@ export function buildURL(url: string, params?: any): string {
 		const val = params[key];
 
 		// 空值处理
-		if (val == null)
+		if (val == null) {
 			return;
+		}
 
 		// 数组处理 ['bar', 'baz'] => foo[]=bar, foo[]=baz
 		// 都统一成数组，在进行拼接
@@ -52,12 +54,14 @@ export function buildURL(url: string, params?: any): string {
 			values = [val];
 		}
 		values.forEach(val => {
-			if (isDate(val))
+			if (isDate(val)) {
 				// 日期处理
 				val = val.toISOString();
-			else if (isPlainObject(val))
+			}
+			else if (isPlainObject(val)) {
 				// 对象处理
 				val = JSON.stringify(val);
+			}
 
 			parts.push(`${encode(key)}=${encode(val)}`);
 		});
@@ -67,8 +71,9 @@ export function buildURL(url: string, params?: any): string {
 	if (serializedParams) {
 		// 丢弃哈希标记 /base/get#hash => /base/get
 		const markIndex = url.indexOf('#');
-		if (markIndex !== -1)
+		if (markIndex !== -1) {
 			url = url.slice(0, markIndex);
+		}
 
 		// 保留 url 中已存在的参数
 		url = `${url}${url.indexOf('?') === -1 ? '?' : '&'}${serializedParams}`;
