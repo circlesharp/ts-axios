@@ -8,6 +8,7 @@ const {
 	registerBaseRouter,
 	registerErrorRouter,
 	registerExtendRouter,
+	registerInterceptorRouter,
 } = require('./routerRegister');
 
 const app = express();
@@ -36,6 +37,7 @@ registerSimpleRouter(router);
 registerBaseRouter(router);
 registerErrorRouter(router);
 registerExtendRouter(router);
+registerInterceptorRouter(router);
 
 
 app.use(router);
