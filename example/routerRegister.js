@@ -50,30 +50,27 @@ const registerErrorRouter = router => {
 };
 
 const registerExtendRouter = router => {
-	router.get('/extend/get', (req, res) => {
-		_routerHelper('get', req, res);
-	});
-	router.delete('/extend/delete', (req, res) => {
-		_routerHelper('delete', req, res);
-	});
-	router.options('/extend/options', (req, res) => {
-		_routerHelper('options', req, res);
-	});
-	router.head('/extend/head', (req, res) => {
-		_routerHelper('head', req, res);
-	});
-	router.post('/extend/post', (req, res) => {
-		_routerHelper('post', req, res);
-	});
-	router.put('/extend/put', (req, res) => {
-		_routerHelper('put', req, res);
-	});
-	router.patch('/extend/patch', (req, res) => {
-		_routerHelper('patch', req, res);
+	router.get('/extend/get', _routerHelper);
+	router.delete('/extend/delete', _routerHelper);
+	router.options('/extend/options', _routerHelper);
+	router.head('/extend/head', _routerHelper);
+	router.post('/extend/post', _routerHelper);
+	router.put('/extend/put', _routerHelper);
+	router.patch('/extend/patch', _routerHelper);
+
+	router.get('/extend/user', (req, res) => {
+		res.json({
+			code: 0,
+			message: 'ok',
+			result: {
+				name: 'tom',
+				age: 18,
+			}
+		});
 	});
 };
 
-const _routerHelper = (method, req, res) => {
+const _routerHelper = (req, res) => {
 	res.json({
 		method: req.method,
 		data: Object.keys(req.body).length > 0 ? req.body : 'no body(data)',
