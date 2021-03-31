@@ -1,3 +1,9 @@
+/**
+ * 文件导出 default config
+ * 但是这个 config 的 headers 是不符合规范的
+ * 包含了 common, ...methods 等字段（会在后序的 transform 中转为标准的）
+ */
+
 import { transformRequest, transformResponse } from './helpers/data';
 import { processHeaders } from './helpers/headers';
 import { AxiosRequestConfig } from './types';
