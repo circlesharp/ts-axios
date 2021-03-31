@@ -1,5 +1,5 @@
-import { head } from "shelljs";
-import { isPlainObject } from "./utils";
+import { Method } from "../types";
+import { deepMerge, isPlainObject } from "./utils";
 
 const CONTENT_TYPE = 'Content-Type';
 
@@ -58,4 +58,20 @@ export function parseHeaders(headers: string): any {
 	}
 
 	return parsed;
+}
+
+export function flattenHeaders(headers: any, method: Method): any {
+	if (!headers) {
+		return headers;
+	}
+
+	headers = deepMerge(headers.common, headers[method], headers);
+
+	const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common'];
+
+	methodsToDelete.forEach(met => {
+		delete headers[met];
+	});
+
+	return headers;
 }

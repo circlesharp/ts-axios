@@ -3,13 +3,7 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const WebpackConfig = require('./webpack.config');
-const {
-	registerSimpleRouter,
-	registerBaseRouter,
-	registerErrorRouter,
-	registerExtendRouter,
-	registerInterceptorRouter,
-} = require('./routerRegister');
+const routerRegisters = require('./routerRegister');
 
 const app = express();
 const compiler = webpack(WebpackConfig);
@@ -33,12 +27,9 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 // 路由
-registerSimpleRouter(router);
-registerBaseRouter(router);
-registerErrorRouter(router);
-registerExtendRouter(router);
-registerInterceptorRouter(router);
-
+Object.keys(routerRegisters).forEach(key => {
+	routerRegisters[key](router);
+});
 
 app.use(router);
 

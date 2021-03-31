@@ -76,6 +76,12 @@ const registerInterceptorRouter = router => {
 	});
 };
 
+const registerConfigRouter = router => {
+	router.post('/config/post', (req, res) => {
+		res.json(req.body);
+	});
+};
+
 const _routerHelper = (req, res) => {
 	res.json({
 		method: req.method,
@@ -90,4 +96,5 @@ module.exports = {
 	registerErrorRouter,
 	registerExtendRouter,
 	registerInterceptorRouter,
+	registerConfigRouter,
 };
