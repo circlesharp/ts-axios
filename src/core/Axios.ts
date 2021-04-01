@@ -32,6 +32,7 @@ export default class Axios {
 		};
 	}
 
+
 	// ================= 核心方法 request =================
 
 	request(url: any, config?: AxiosRequestConfig): AxiosPromise {

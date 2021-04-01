@@ -8,10 +8,12 @@ function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
 	// 1 处理配置
 	processConfig(config);
 
-	// 2 发请求
+	// 2 发请求 & 处理响应数据
 	return xhr(config).then(res => transformResponseData(res));
 }
 
+// =========== 发请求获取响应过程中的 transform ===========
+// =========== 推导: interceptors 在 transform 之外 ===========
 function processConfig(config: AxiosRequestConfig): void {
 	config.url = transformURL(config);
 	config.data = transform(config.data, config.headers, config.transformRequest);

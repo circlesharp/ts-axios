@@ -7,28 +7,28 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     const { data = null, url, method = 'get', headers, responseType, timeout } = config;
     const request = new XMLHttpRequest();
 
-    /**
-     * 设置响应类型
-     */
+    /* 设置响应类型 */
     if (responseType) {
       request.responseType = responseType;
     }
 
-    /**
-     * 设置超时
-     */
+    /* 设置超时 */
     if (timeout) {
       request.timeout = timeout;
     }
 
-    /**
-     * xhrReq.open(method, url, [async, user, password]);
-     * async 表示是否异步执行操作 默认为true
-     * user password 可选的用户名用于认证用途；默认为null
-     */
+    /* xhrReq.open */
     request.open(method.toUpperCase(), url!, true);
 
-    // resolve
+    /* xhrReq.setRequestHeader */
+    Object.keys(headers).forEach(name => {
+      request.setRequestHeader(name, headers[name]);
+    });
+
+    /* xhrReq.send */
+    request.send(data);
+
+    /* 回调函数 readyState */
     request.onreadystatechange = function handleLoad() {
       /**
        * * readyState
@@ -65,7 +65,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       handleResponse(response);
     };
 
-    // reject 1 网络异常错误
+    /* 回调函数 网络异常错误 */
     request.onerror = function handleError() {
       reject(createError({
         message: 'Network Error',
@@ -75,7 +75,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }));
     };
 
-    // reject 2 超时
+    /* 回调函数 超时 */
     request.ontimeout = function handleTimeout() {
       reject(createError({
         message: `Timeout of ${timeout} ms Exceeded`,
@@ -85,26 +85,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }));
     };
 
-    // reject 3 status 不在 [200, 300] 区间
-    // handleResponse() 来解决
-
-    /**
-     * 处理 headers
-     * 时机: 在 open 之后
-     */
-    Object.keys(headers).forEach(name => {
-      request.setRequestHeader(name, headers[name]);
-    });
-
-    /**
-     * XMLHttpRequest.send(body)
-     * body 默认值为 null
-     * 可以为 Document, 可以为 XMLHttpRequestBodyInit
-     * 如果请求方法是 GET 或者 HEAD，则应将请求主体设置为 null
-     */
-    request.send(data);
-
-
+    /* 处理响应数据 */
     function handleResponse(response: AxiosResponse): void {
       if (response.status >= 200 && response.status < 300) {
         resolve(response);
