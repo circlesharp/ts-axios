@@ -1,3 +1,8 @@
+/**
+ * 文件导出 transform
+ * 链式调用配置上的 transform 字段的方法
+ */
+
 import { AxiosTransformer } from "../types";
 
 export default function transform(data: any, headers: any, fns?: AxiosTransformer | Array<AxiosTransformer>): any {

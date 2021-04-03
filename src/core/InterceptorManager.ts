@@ -1,3 +1,11 @@
+/**
+ * 文件导出 拦截器管理类
+ * 类中包括拦截器数组
+ * use 方法往数据追加函数
+ * eject 方法让指定位置的函数变为 null
+ * forEach 方法不对外暴露，用于遍历拦截器数组
+ */
+
 import { RejectedFn, ResolvedFn } from "../types";
 
 interface Interceptor<T> {

@@ -37,3 +37,24 @@ axios({
 	.then(res => {
 		console.log(res.data);
 	});
+
+const instance = axios.create({
+	transformRequest: [
+		data => qs.stringify(data),
+		...axios.defaults.transformRequest as AxiosTransformer[],
+	],
+	transformResponse: [
+		...axios.defaults.transformResponse as AxiosTransformer[],
+		data => {
+			if (typeof data === 'object') {
+				data.b = 234;
+			}
+			return data;
+		}
+	],
+});
+
+instance.post('/config/post', {
+	data: { a: 123 }
+})
+	.then(res => console.log(res.data));

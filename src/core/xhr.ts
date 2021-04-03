@@ -1,3 +1,8 @@
+/**
+ * 文件导出 xhr
+ * xhr 函数返回通过 Promise 包装的 响应结果 or 异常
+ */
+
 import { createError } from "../helpers/error";
 import { parseHeaders } from "../helpers/headers";
 import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "../types";

@@ -1,3 +1,9 @@
+/**
+ * 文件导出 dispatchRequest
+ * 这一步骤在 请求拦截和响应拦截之间
+ * 除了处理 xhr, 处理了 config 中的 transform 配置
+ */
+
 import { flattenHeaders } from "../helpers/headers";
 import { buildURL } from "../helpers/url";
 import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "../types";

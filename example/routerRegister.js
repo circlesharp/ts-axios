@@ -1,5 +1,3 @@
-const express = require('express');
-
 const registerSimpleRouter = router => {
 	router.get('/simple/get', async (req, res) => {
 		res.json({ msg: 'hello world' });
