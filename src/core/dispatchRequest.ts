@@ -10,7 +10,10 @@ import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "../types";
 import transform from "./transform";
 import xhr from "./xhr";
 
-function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+	// 0 检查是否已经取消请求
+	throwIfCancellationRequested(config);
+
 	// 1 处理配置
 	processConfig(config);
 
@@ -36,4 +39,8 @@ function transformResponseData(res: AxiosResponse): AxiosResponse {
 	return res;
 }
 
-export default dispatchRequest;
+function throwIfCancellationRequested(config: AxiosRequestConfig): void {
+	if (config.cancelToken) {
+		config.cancelToken.throwIfRequested();
+	}
+}

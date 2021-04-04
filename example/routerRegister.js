@@ -80,6 +80,20 @@ const registerConfigRouter = router => {
 	});
 };
 
+const registerCancelRouter = router => {
+	router.get('/cancel/get', (req, res) => {
+		setTimeout(() => {
+			res.json('hello');
+		}, 1000);
+	});
+
+	router.post('/cancel/post', (req, res) => {
+		setTimeout(() => {
+			res.json(req.body);
+		}, 1000);
+	});
+};
+
 const _routerHelper = (req, res) => {
 	res.json({
 		method: req.method,
@@ -95,4 +109,5 @@ module.exports = {
 	registerExtendRouter,
 	registerInterceptorRouter,
 	registerConfigRouter,
+	registerCancelRouter,
 };
